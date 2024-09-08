@@ -22,6 +22,8 @@ const MyLibrary = () => {
   const [filteredSongs, setFilteredSongs] = useState(songs); // State to store the filtered songs
 
   useEffect(() => {
+    console.log("token",user.token);
+    
     dispatch(fetchSongsRequest({token: user?.token})); // Fetch songs on component mount
   }, [dispatch]);
 

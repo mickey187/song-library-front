@@ -17,6 +17,11 @@ const Signin = () => {
   const { loading, error, isAuthenticated } = useSelector(
     (state: RootState) => state.user
   );
+  interface AuthPayload {
+    email: string | null | undefined;
+    password: string | null | undefined;
+  }
+  
 
   const [formData, setFormData] = useState({
     email: "",
@@ -35,7 +40,11 @@ const Signin = () => {
     e.preventDefault();
     try {
       const parsedData = schema.parse(formData);
-      dispatch(loginRequest(parsedData));
+      const authPayload: AuthPayload = {
+        email: parsedData.email ?? null,
+        password: parsedData.password ?? null,
+      };
+      dispatch(loginRequest(authPayload));
       console.log(parsedData);
 
     // if (isAuthenticated) {
@@ -47,6 +56,7 @@ const Signin = () => {
       //   setErrors(error.formErrors.fieldErrors);
     }
   };
+  
   useEffect(()=>{
     if (isAuthenticated) {
       navigate('/my-library');

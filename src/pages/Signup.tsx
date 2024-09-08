@@ -27,6 +27,13 @@ const Signup = () => {
   const { loading, error, isAuthenticated } = useSelector(
     (state: RootState) => state.user
   );
+  interface RegisterPayload{
+    firstName: string|null|undefined,
+    lastName: string|null|undefined,
+    email: string|null|undefined,
+    password: string|null|undefined,
+    
+  }
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -53,7 +60,13 @@ const Signup = () => {
     try {
       const parsedData = schema.parse(formData);
       console.log("Form submitted:", parsedData);
-      dispatch(registerRequest(parsedData));
+      const registerPayload:RegisterPayload = {
+        firstName: parsedData.firstName,
+        lastName: parsedData.lastName,
+        email: parsedData.email,
+        password: parsedData.password,
+      }
+      dispatch(registerRequest(registerPayload));
       if (isAuthenticated) {
         navigate("/my-library");
       }
