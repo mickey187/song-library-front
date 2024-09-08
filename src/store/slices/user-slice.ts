@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const getUserFromLocalStorage = () => {
+  const storedUser = localStorage.getItem('user');
+  return storedUser ? JSON.parse(storedUser) : null;
+};
+
+
 interface UserState {
-  user: { email: string, firstName: string, lastName: string, token: string } | null;
+  user: { email: string, firstName: string, lastName: string, token: string|undefined } | null;
   loading: boolean;
   error: string | null;
   isAuthenticated: boolean;
@@ -20,10 +26,10 @@ interface RegisterPayload{
 }
 
 const initialState: UserState = {
-  user: null,
+  user: getUserFromLocalStorage(),
   loading: false,
   error: null,
-  isAuthenticated: false,
+  isAuthenticated: !!getUserFromLocalStorage(),
 };
 
 const userSlice = createSlice({
@@ -38,6 +44,7 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
       state.error = null;
+      localStorage.setItem('user', JSON.stringify(action.payload)); // Save to localStorage
     },
     registerFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -51,6 +58,7 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
       state.error = null;
+      localStorage.setItem('user', JSON.stringify(action.payload)); // Save to localStorage
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -59,6 +67,7 @@ const userSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.isAuthenticated = false;
+      localStorage.removeItem('user'); // Remove from localStorage on logout
     },
   },
 });
