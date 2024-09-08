@@ -14,57 +14,46 @@ const sidebarStyles = css`
   left: 0;
   bottom: 0;
   width: 250px;
-  background-color: #333;
-  color: #fff;
+  background-color: #2c3e50;
+  color: #ecf0f1;
   padding: 20px;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      margin-bottom: 10px;
-    }
-
-    a {
-      color: #fff;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  overflow-y: auto; /* Ensure scrolling if content overflows */
 `;
 
 const openStyles = css`
   transform: translateX(0);
 `;
 
-const menuStyles = css`margin-top: 10px`;
+const closeButtonStyles = css`
+  font-size: 24px;
+  color: #ecf0f1;
+  cursor: pointer;
+  margin-bottom: 20px;
+`;
+
+const menuStyles = css`margin-top: 10px;`
 
 const menutItems = [
-  { id: 1, path: "/my-library", menuName: "My Library" , icon: <VscLibrary />},
-  { id: 2, path: "/", menuName: "Stats", icon: <VscLibrary/> },
+  { id: 1, path: "/my-library", menuName: "My Library", icon: <VscLibrary /> },
+  { id: 2, path: "/stats", menuName: "Stats", icon: <VscLibrary /> },
+  { id: 3, path: "/upload-music", menuName: "Upload Music", icon: <VscLibrary /> },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
-
-
- 
   return (
-    <>
-      <aside className={`${sidebarStyles} ${isOpen ? openStyles : ""}`}>
-        <IoMdClose onClick={onClose} />
-        <div className={menuStyles}>
-            <Menu menuItems={menutItems} />
-        </div>
+    <aside className={`${sidebarStyles} ${isOpen ? openStyles : ""}`}>
+      <IoMdClose onClick={onClose} className={closeButtonStyles} />
+      <div className={`${menuStyles}`}>
+        <Menu menuItems={menutItems}/>
+      </div>
         
-      </aside>
-    </>
+      
+    </aside>
   );
 };
 
