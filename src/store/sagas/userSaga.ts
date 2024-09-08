@@ -1,3 +1,4 @@
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
   registerSuccess,
@@ -7,7 +8,7 @@ import {
 } from "../slices/user-slice";
 import axios, { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
-const baseUrl = "http://localhost:3000";
+const baseUrl = `${backendUrl}`;
 
 interface UserPayload {
   email: string;

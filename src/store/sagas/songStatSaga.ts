@@ -1,3 +1,4 @@
+const backendUrl = import.meta.env.VITE_BACKEND_URL
 import { call, put, takeLatest } from "redux-saga/effects";
 import { 
   fetchSongStatRequest,
@@ -6,8 +7,7 @@ import {
 } from "../slices/stat-slice";
 import axios, { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
-
-const baseUrl = "http://localhost:3000";
+const baseUrl = `${backendUrl}`;
 
 function* handleFetchSongStats(action: PayloadAction<{token: string}>) {
   const{token}= action.payload;
