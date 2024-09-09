@@ -13,7 +13,7 @@ import Signin from "./pages/Signin";
 import Sidebar from "./components/SideBar/SideBar";
 import MyLibrary from "./pages/MyLibrary";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { CiLogout } from "react-icons/ci";
+import { IoIosLogOut } from "react-icons/io";
 import Signup from "./pages/Signup";
 import UploadMusic from "./pages/UploadMusic";
 import MusicDetail from "./pages/MusicDetail";
@@ -53,7 +53,7 @@ function AppContent({ isSidebarOpen, toggleSidebar, closeSidebar }) {
     dispatch(logout());
     window.location.href = "/"
   };
-  const { loading, error, user } = useSelector(
+  const { loading, error, user, isAuthenticated } = useSelector(
     (state: RootState) => state.user
   );
   console.log("userrrrr", user);
@@ -74,29 +74,32 @@ function AppContent({ isSidebarOpen, toggleSidebar, closeSidebar }) {
     display: flex;
     align-items: center;
     gap: 10px; 
+    
   `;
   const logutButtonstyle = css`
   padding: 10px;
   border-radius: 10px;
   background-color: #f56565;
+  cursor:pointer;
   `
 
   return (
     <>
-      {!isAuthPage && (
+      {isAuthenticated && (
         <header className={`${headerStyle}`}>
-          <RxHamburgerMenu onClick={toggleSidebar} />
+          <RxHamburgerMenu onClick={toggleSidebar} style={{cursor: 'pointer'}} />
           <div className={`${userInfoStyle}`}>
             <h4>
               {!error && user?.firstName} {!error && user?.lastName}
             </h4>
             {/* <button className={`${logutButtonstyle}`} onClick={handleLogout}>Logout</button> */}
-            <CiLogout className={`${logutButtonstyle}`}onClick={handleLogout} />
+            <IoIosLogOut color="white"  className={`${logutButtonstyle}`}onClick={handleLogout} />
+           
           </div>
         </header>
       )}
 
-      {!isAuthPage && <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />}
+      {isAuthenticated && <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />}
 
       <main
         style={{
@@ -106,7 +109,8 @@ function AppContent({ isSidebarOpen, toggleSidebar, closeSidebar }) {
         }}
       >
         <Routes>
-          <Route path="/" element={<Signin />} />
+          <Route path="/" element={isAuthenticated? <MyLibrary/> : <Signin />} />
+          <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/my-library" element={<MyLibrary />} />
           <Route path="/stats" element={<SongStats />} />
