@@ -46,9 +46,9 @@ const gridStyles = css`
     padding: 0; /* Removed padding to eliminate space between image and card */
 
     img {
-      width: 200px; /* Set image width to 200px */
+      width: 100%; /* Set image width to 200px */
       height: 200px; /* Set image height to 200px */
-      object-fit: cover; /* Ensure the image fits without distortion */
+      object-fit: fit; /* Ensure the image fits without distortion */
       border-radius: 0; /* Remove any border-radius if you don't want rounded corners */
     }
 
@@ -92,7 +92,7 @@ const TrackListGrid = ({ tracks }) => {
       <h2>Songs</h2>
       <div className="trackGrid">
         {tracks.map((track, index) => (
-          <Link to={`/track/${track._id}`}>
+          <Link to={`/track/${track._id}`} style={{textDecoration: 'none'}}>
             
             <TrackCard
               key={track._id}

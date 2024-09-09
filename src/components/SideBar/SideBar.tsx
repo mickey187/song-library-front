@@ -1,7 +1,10 @@
 import { css } from "@emotion/css";
 import Menu from "./Menu";
 import { IoMdClose } from "react-icons/io";
-import { VscLibrary } from "react-icons/vsc";
+import { IoLibrary } from "react-icons/io5";
+import { IoStatsChartSharp } from "react-icons/io5";
+import { IoCloudUploadSharp } from "react-icons/io5";
+import logo from "../../assets/img/logo.png";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -14,7 +17,7 @@ const sidebarStyles = css`
   left: 0;
   bottom: 0;
   width: 250px;
-  background-color: #2c3e50;
+  background-color: #171b36;
   color: #ecf0f1;
   padding: 20px;
   transform: translateX(-100%);
@@ -35,19 +38,26 @@ const closeButtonStyles = css`
   cursor: pointer;
   margin-bottom: 20px;
 `;
+const imgStyle = css`
+margin-left: 20px;
+width: 30%;
+height: auto;
+`;
 
 const menuStyles = css`margin-top: 10px;`
 
 const menutItems = [
-  { id: 1, path: "/my-library", menuName: "My Library", icon: <VscLibrary /> },
-  { id: 2, path: "/stats", menuName: "Stats", icon: <VscLibrary /> },
-  { id: 3, path: "/upload-music", menuName: "Upload Music", icon: <VscLibrary /> },
+  { id: 1, path: "/my-library", menuName: "My Library", icon: <IoLibrary />},
+  { id: 2, path: "/stats", menuName: "Stats", icon: <IoStatsChartSharp /> },
+  { id: 3, path: "/upload-music", menuName: "Upload Music", icon: <IoCloudUploadSharp /> },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
     <aside className={`${sidebarStyles} ${isOpen ? openStyles : ""}`}>
       <IoMdClose onClick={onClose} className={closeButtonStyles} />
+      <img src={logo} className={`${imgStyle}`} alt="" />
+      <h4>My Tunes</h4>
       <div className={`${menuStyles}`}>
         <Menu menuItems={menutItems}/>
       </div>

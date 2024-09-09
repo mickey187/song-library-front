@@ -64,6 +64,7 @@ const MyLibrary = () => {
     color: white;
     width: 150px;
     margin-left: 20px;
+    cursor:pointer;
   `;
 
   const searchInputStyle = css`

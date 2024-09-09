@@ -16,7 +16,8 @@ const Menu: React.FC<MenuProps> = ({ menuItems }) => {
     display: flex;
     align-items: center;
     padding: 10px;
-    border: 1px solid #34495e; /* Border around each nav link */
+    // width: 100%;
+    // border: 1px solid #34495e; /* Border around each nav link */
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-bottom: 10px;
@@ -39,7 +40,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems }) => {
   `;
   return (
     <>
-      <ul >
+      <ul style={{width: '100%', padding: '0'}}>
         {menuItems.map((menuItem) => (
           <li key={menuItem.id} className={`${menuItemStyles}`}>
             <span>
