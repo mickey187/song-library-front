@@ -27,15 +27,10 @@ interface LoginApiResponse {
 // Worker Saga: Handling user registration
 function* handleRegister(action: PayloadAction<UserPayload>) {
   try {
-    const response: AxiosResponse<{
-      email: string;
-      firstName: string;
-      lastName: string;
-      token: string;
-    }> = yield call(axios.post, `${baseUrl}/api/auth/sign-up`, action.payload);
+    const response: AxiosResponse<LoginApiResponse> = yield call(axios.post, `${baseUrl}/api/auth/sign-up`, action.payload);
     console.log(response);
-
-    yield put(registerSuccess(response.data));
+    const data = response.data.data.user;
+    yield put(registerSuccess(data));
   } catch (error: any) {
     yield put(registerFailure(error.response.data));
   }

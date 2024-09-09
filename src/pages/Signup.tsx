@@ -247,7 +247,7 @@ const imgStyle = css`
             <div>
               <button
                 type="submit"
-                disabled={loading}
+                // disabled={loading}
                 className={buttonStyle}
               >
                 Sign Up
