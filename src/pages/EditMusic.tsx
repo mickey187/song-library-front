@@ -5,13 +5,14 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { RootState, AppDispatch } from "../store/store";
 import {  useSelector, useDispatch } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 function EditMusic() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { loading, error, songs } = useSelector(
+  const { loading:songLoading, error:songError, songs } = useSelector(
     (state: RootState) => state.songs
   );
   const { loading:userLoading, error:userError, user } = useSelector(
@@ -79,6 +80,10 @@ function EditMusic() {
           artwork, // This is a File object
         })
       );
+      if(!songError){
+        alert("Song updated!");
+        navigate("/my-library");
+      }
     } catch (error: any) {
       setErrors(error.formErrors.fieldErrors);
       console.error("Error submitting form", error);
